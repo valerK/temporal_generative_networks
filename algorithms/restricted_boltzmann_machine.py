@@ -81,7 +81,7 @@ if __name__ == '__main__':
                                      learning_rate=0.01,
                                      gibbs_steps=100)
 
-    (x_train, y_train), (x_test, y_test) = mnist('../data/')
+    (x_train, y_train), (x_test, y_test) = mnist('../data/mnist')
 
     EPOCHS = 100
     BATCH_SIZE = 10
@@ -96,8 +96,8 @@ if __name__ == '__main__':
             batch[batch >= 0.2] = 1.0
             batch[batch != 1.0] = 0.0
 
-            preds = rbm(torch.from_numpy(batch.reshape([10, 784, 1])).float())
-            rbm.optimize(samples=torch.from_numpy(batch.reshape([10, 784, 1])).float(),
+            preds = rbm(torch.from_numpy(batch.reshape([BATCH_SIZE, 784, 1])).float())
+            rbm.optimize(samples=torch.from_numpy(batch.reshape([BATCH_SIZE, 784, 1])).float(),
                          predictions=preds)
 
             if idx % 10000 == 0:
